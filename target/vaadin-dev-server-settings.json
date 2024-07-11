@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/./src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/./src/main/frontend/generated/jar-resources",
+  "staticOutput": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/target/classes/META-INF/VAADIN/config",
+  "frontendBundleOutput": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/target/classes/META-INF/VAADIN/webapp",
+  "devBundleOutput": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/target/dev-bundle/config",
+  "jarResourcesFolder": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/./src/main/frontend/generated/jar-resources",
+  "themeName": "my-theme",
+  "clientServiceWorkerSource": "/Users/nilan/Documents/Github/nilandev/vaadin-blog/target/sw.ts",
+  "pwaEnabled": true,
+  "offlineEnabled": true,
+  "offlinePath": "'.'"
+}
