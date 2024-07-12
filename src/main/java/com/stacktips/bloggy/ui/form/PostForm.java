@@ -8,17 +8,13 @@ import com.stacktips.bloggy.service.AuthorService;
 import com.stacktips.bloggy.service.CategoryService;
 import com.stacktips.bloggy.service.PostService;
 import com.stacktips.bloggy.service.TagService;
-import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.ListDataProvider;
 
 import java.util.Set;
 
@@ -51,6 +47,7 @@ public class PostForm extends FormLayout {
     private final Binder<Post> binder = new BeanValidationBinder<>(Post.class);
 
     public PostForm(PostService postService, AuthorService authorService, TagService tagService, CategoryService categoryService) {
+        setClassName("container");
         this.postService = postService;
         this.authorService = authorService;
         this.tagService = tagService;

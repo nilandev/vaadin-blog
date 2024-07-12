@@ -13,17 +13,10 @@ import com.vaadin.flow.router.Route;
 @Route(value = "new-post", layout = MainLayout.class)
 public class NewPostView extends VerticalLayout {
 
-    private final PostService postService;
-    private final AuthorService authorService;
-    private final TagService tagService;
-    private final CategoryService categoryService;
 
-    public NewPostView(PostService postService, AuthorService authorService, TagService tagService, CategoryService categoryService) {
+    public NewPostView(PostService postService, AuthorService authorService,
+                       TagService tagService, CategoryService categoryService) {
         setClassName("container");
-        this.postService = postService;
-        this.authorService = authorService;
-        this.tagService = tagService;
-        this.categoryService = categoryService;
 
         PostForm postForm = new PostForm(postService, authorService, tagService, categoryService);
         postForm.setPost(new Post());

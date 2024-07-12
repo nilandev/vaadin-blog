@@ -3,7 +3,6 @@ package com.stacktips.bloggy.ui.routes;
 import com.stacktips.bloggy.service.PostService;
 import com.stacktips.bloggy.ui.component.PostCard;
 import com.stacktips.bloggy.ui.layout.MainLayout;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -17,7 +16,6 @@ public class PostListView extends VerticalLayout {
 
     @Autowired
     public PostListView(PostService postService) {
-        add(new H1("Blog Posts"));
         this.postService = postService;
         addClassNames("container", "post-list-view");
         listPosts();

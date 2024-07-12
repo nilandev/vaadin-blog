@@ -1,6 +1,5 @@
 package com.stacktips.bloggy.ui.layout;
 
-import com.stacktips.bloggy.ui.routes.NewPostView;
 import com.stacktips.bloggy.ui.routes.PostListView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -20,6 +19,10 @@ public class MainLayout extends AppLayout {
         H1 logo = new H1("Bloggy");
         logo.addClassName("logo");
 
+        HorizontalLayout navbarContainer = new HorizontalLayout(logo);
+        navbarContainer.setWidth("100%");
+        navbarContainer.addClassNames("navbar-top");
+
         HorizontalLayout header = new HorizontalLayout(logo);
         header.addClassNames("container");
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
@@ -27,16 +30,19 @@ public class MainLayout extends AppLayout {
         header.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
 
         header.add(getNavBar());
-        addToNavbar(header);
+
+        navbarContainer.add(header);
+        addToNavbar(navbarContainer);
     }
 
     private HorizontalLayout getNavBar() {
-        RouterLink postListLink = new RouterLink("Posts", PostListView.class);
-        RouterLink newPostLink = new RouterLink("New Post", NewPostView.class);
+        RouterLink postListLink = new RouterLink("Blog", PostListView.class);
+        postListLink.setClassName("nav-link");
 
-        HorizontalLayout navbar = new HorizontalLayout(postListLink, newPostLink);
-        navbar.setSpacing(true);
-        navbar.setPadding(true);
-        return navbar;
+
+        HorizontalLayout navbarMenuContainer = new HorizontalLayout(postListLink);
+        navbarMenuContainer.setSpacing(true);
+        navbarMenuContainer.setPadding(true);
+        return navbarMenuContainer;
     }
 }

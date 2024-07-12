@@ -1,17 +1,21 @@
 package com.stacktips.bloggy.ui.routes;
 
-import com.stacktips.bloggy.model.Category;
 import com.stacktips.bloggy.model.Post;
 import com.stacktips.bloggy.service.PostService;
 import com.stacktips.bloggy.ui.layout.MainLayout;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.stream.Collectors;
 
 @Route(value = "post/:postId", layout = MainLayout.class)
 @PageTitle("Post Details")
@@ -22,10 +26,7 @@ public class PostDetailView extends VerticalLayout implements BeforeEnterObserve
     @Autowired
     public PostDetailView(PostService postService) {
         this.postService = postService;
-        setClassName("container");
-
-        RouterLink backLink = new RouterLink("Back to Posts", PostListView.class);
-        add(backLink);
+        setClassName("post-details-container");
     }
 
     @Override
@@ -42,6 +43,7 @@ public class PostDetailView extends VerticalLayout implements BeforeEnterObserve
 
     private void displayPost(Post post) {
         H1 title = new H1(post.getTitle());
+        title.addClassName("display1");
         add(title);
 
         if (post.getThumbnailUrl() != null && !post.getThumbnailUrl().isEmpty()) {
@@ -49,14 +51,29 @@ public class PostDetailView extends VerticalLayout implements BeforeEnterObserve
             add(thumbnail);
         }
 
+        Paragraph excerpt = new Paragraph(post.getExcerpt());
+        excerpt.addClassNames("lead");
+        add(excerpt);
+
         Paragraph content = new Paragraph(post.getContent());
         add(content);
 
-        Paragraph author = new Paragraph("By " + (post.getAuthor() != null ? post.getAuthor().getName() : "-"));
-        add(author);
+        HorizontalLayout actions = new HorizontalLayout();
+        Button newPostButton = new Button("New Post", new Icon(VaadinIcon.PLUS));
+        newPostButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        newPostButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
+            newPostButton.getUI().ifPresent(ui -> ui.navigate(NewPostView.class));
+        });
+        actions.add(newPostButton);
 
-        Paragraph categories = new Paragraph("Categories: " + String.join(", ",
-                post.getCategories().stream().map(Category::getName).collect(Collectors.toList())));
-        add(categories);
+        Button editPostButton = new Button("Edit Post", new Icon(VaadinIcon.EDIT));
+        editPostButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        editPostButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
+            editPostButton.getUI()
+                    .ifPresent(ui -> ui.navigate(EditPostView.class, new RouteParameters(new RouteParam("postId", post.getId()))));
+        });
+
+        actions.add(editPostButton);
+        add(actions);
     }
 }
