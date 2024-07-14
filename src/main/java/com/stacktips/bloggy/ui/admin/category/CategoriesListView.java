@@ -2,18 +2,22 @@ package com.stacktips.bloggy.ui.admin.category;
 
 import com.stacktips.bloggy.model.Category;
 import com.stacktips.bloggy.service.CategoryService;
+import com.stacktips.bloggy.ui.admin.AdminView;
 import com.stacktips.bloggy.ui.admin.DashboardLayout;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,16 +25,20 @@ import java.util.Map;
 
 @Route(value = "admin/categories", layout = DashboardLayout.class)
 @PageTitle("Categories")
-public class CategoryView extends VerticalLayout {
+@UIScope
+public class CategoriesListView extends AdminView {
 
     private final CategoryService categoryService;
     private final Grid<Category> grid = new Grid<>(Category.class);
 
     @Autowired
-    public CategoryView(CategoryService categoryService) {
+    public CategoriesListView(CategoryService categoryService) {
         this.categoryService = categoryService;
+        addActions();
+
         grid.setColumns("id", "name", "slug", "excerpt", "publishStatus", "articleCount", "dateUpdated");
         grid.setAllRowsVisible(true);
+        grid.getElement().setAttribute("theme", "no-border");
 
         grid.addColumn(
                 new ComponentRenderer<>(HorizontalLayout::new, (layout, category) -> {
@@ -54,6 +62,21 @@ public class CategoryView extends VerticalLayout {
         updateList();
     }
 
+    private void addActions() {
+        HorizontalLayout actions = new HorizontalLayout();
+        actions.setSizeFull();
+        actions.setAlignItems(FlexComponent.Alignment.CENTER);
+        actions.setJustifyContentMode(JustifyContentMode.END);
+
+        Button newPostButton = new Button("New", new Icon(VaadinIcon.PLUS));
+        newPostButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SMALL);
+        newPostButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
+            newPostButton.getUI().ifPresent(ui -> ui.navigate(EditCategoryView.class));
+        });
+        actions.add(newPostButton);
+        add(actions);
+    }
+
     private void updateList() {
         grid.setItems(categoryService.findAll());
     }
@@ -62,15 +85,20 @@ public class CategoryView extends VerticalLayout {
         if (null != category) {
             QueryParameters urlParams = new QueryParameters(Map.of("id", List.of(String.valueOf(category.getId()))));
             button.getUI()
-                    .ifPresent(ui -> ui.navigate(CategoryForm.class, urlParams));
+                    .ifPresent(ui -> ui.navigate(EditCategoryView.class, urlParams));
         } else {
             button.getUI()
-                    .ifPresent(ui -> ui.navigate(CategoryForm.class));
+                    .ifPresent(ui -> ui.navigate(EditCategoryView.class));
         }
     }
 
     private void deleteCategory(Category category) {
         categoryService.deleteCategory(category.getId());
         updateList();
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Categories";
     }
 }

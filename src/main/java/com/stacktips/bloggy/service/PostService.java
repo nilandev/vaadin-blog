@@ -27,4 +27,16 @@ public class PostService {
     public Optional<Post> findById(Long postId) {
         return postRepository.findById(postId);
     }
+
+    public void deletePost(Long id) {
+        postRepository.deleteById(id);
+    }
+
+    public Page<Post> findAll(int page, int size) {
+        return postRepository.findAll(PageRequest.of(page, size));
+    }
+
+    public long count() {
+        return postRepository.count();
+    }
 }

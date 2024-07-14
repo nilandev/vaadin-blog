@@ -1,0 +1,38 @@
+:root{
+    --lumo-space-m:16px;
+}
+
+/* styles.css */
+
+:host([theme~="dark"]) [part="drawer"] {
+    background-color: #333;
+    color: #fff;
+}
+
+:host([theme~="dark"]) [part="drawer"] .side-nav {
+    background-color: #333;
+    color: #fff;
+}
+
+:host([theme~="dark"]) [part="drawer"] .side-nav vaadin-side-nav-item {
+    color: #fff;
+}
+
+:host([theme~="dark"]) [part="drawer"] .side-nav vaadin-side-nav-item:hover {
+    background-color: #444;
+}
+
+:host([theme~="dark"]) [part="drawer"] .side-nav vaadin-side-nav-item vaadin-icon {
+    color: #fff;
+}
+
+
+#navbarTop {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+.card {
+    background: white;
+}

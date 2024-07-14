@@ -2,20 +2,11 @@ package com.stacktips.bloggy.ui.routes;
 
 import com.stacktips.bloggy.model.Post;
 import com.stacktips.bloggy.service.PostService;
-import com.stacktips.bloggy.ui.admin.EditPostView;
-import com.stacktips.bloggy.ui.admin.NewPostView;
 import com.stacktips.bloggy.ui.layout.MainLayout;
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Html;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,23 +51,5 @@ public class PostDetailView extends VerticalLayout implements BeforeEnterObserve
 
         Html content = new Html("<div class='post-content'>" + post.getContent() + "</div>");
         add(content);
-
-        HorizontalLayout actions = new HorizontalLayout();
-        Button newPostButton = new Button("New Post", new Icon(VaadinIcon.PLUS));
-        newPostButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        newPostButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
-            newPostButton.getUI().ifPresent(ui -> ui.navigate(NewPostView.class));
-        });
-        actions.add(newPostButton);
-
-        Button editPostButton = new Button("Edit Post", new Icon(VaadinIcon.EDIT));
-        editPostButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        editPostButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> {
-            editPostButton.getUI()
-                    .ifPresent(ui -> ui.navigate(EditPostView.class, new RouteParameters(new RouteParam("postId", post.getId()))));
-        });
-
-        actions.add(editPostButton);
-        add(actions);
     }
 }
