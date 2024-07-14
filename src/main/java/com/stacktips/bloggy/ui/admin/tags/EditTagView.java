@@ -14,7 +14,6 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +32,9 @@ public class EditTagView extends VerticalLayout implements BeforeEnterObserver {
         this.tagService = tagService;
 
         FormLayout formLayout = new FormLayout();
+        formLayout.setClassName("container");
+        formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1, FormLayout.ResponsiveStep.LabelsPosition.TOP),
+                new FormLayout.ResponsiveStep("900px", 2, FormLayout.ResponsiveStep.LabelsPosition.ASIDE));
         formLayout.add(name);
 
         binder.bindInstanceFields(this);

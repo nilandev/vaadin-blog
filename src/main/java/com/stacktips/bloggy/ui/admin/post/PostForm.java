@@ -8,53 +8,48 @@ import com.stacktips.bloggy.service.AuthorService;
 import com.stacktips.bloggy.service.CategoryService;
 import com.stacktips.bloggy.service.PostService;
 import com.stacktips.bloggy.service.TagService;
-import com.stacktips.bloggy.ui.admin.tags.TagsListView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 public class PostForm extends FormLayout {
     private final PostService postService;
-    private final AuthorService authorService;
-    private final TagService tagService;
-    private final CategoryService categoryService;
 
-    private TextField title = new TextField("Title");
-    private TextField slug = new TextField("Slug");
-    private TextField excerpt = new TextField("Excerpt");
-    private TextField postStatus = new TextField("Post Status");
-    private TextArea content = new TextArea("Content");
-    private TextField thumbnailUrl = new TextField("Thumbnail URL");
-    private TextField videoId = new TextField("Video ID");
-    private TextField sourceCode = new TextField("Source Code");
-    private TextField postType = new TextField("Post Type");
-    private TextField templateType = new TextField("Template Type");
-    private TextField displayOrder = new TextField("Display Order");
-    private ComboBox<Author> author = new ComboBox<>("Author");
-    private MultiSelectComboBox<Tag> tags = new MultiSelectComboBox<>("Tags");
-    private MultiSelectComboBox<Category> categories = new MultiSelectComboBox<>("Categories");
-    private Button save = new Button("Save");
+    private final TextField title = new TextField("Title");
+    private final TextField slug = new TextField("Slug");
+    private final TextField excerpt = new TextField("Excerpt");
+    private final TextField postStatus = new TextField("Post Status");
+    private final TextArea content = new TextArea("Content");
+    private final TextField thumbnailUrl = new TextField("Thumbnail URL");
+    private final TextField videoId = new TextField("Video ID");
+    private final TextField sourceCode = new TextField("Source Code");
+    private final TextField postType = new TextField("Post Type");
+    private final TextField templateType = new TextField("Template Type");
+    private final IntegerField displayOrder = new IntegerField("Display Order");
+    private final ComboBox<Author> author = new ComboBox<>("Author");
+    private final MultiSelectComboBox<Tag> tags = new MultiSelectComboBox<>("Tags");
+    private final MultiSelectComboBox<Category> categories = new MultiSelectComboBox<>("Categories");
 
     private final Binder<Post> binder = new Binder<>(Post.class);
 
     public PostForm(PostService postService, AuthorService authorService, TagService tagService,
                     CategoryService categoryService, Post post) {
-        setClassName("container");
         this.postService = postService;
-        this.authorService = authorService;
-        this.tagService = tagService;
-        this.categoryService = categoryService;
+
+        setClassName("container");
+        setResponsiveSteps(new ResponsiveStep("0", 1, ResponsiveStep.LabelsPosition.TOP),
+                new ResponsiveStep("900px", 2, ResponsiveStep.LabelsPosition.ASIDE));
 
         author.setItems(authorService.findAll().stream().collect(Collectors.toSet()));
         author.setItemLabelGenerator(Author::getName);
@@ -65,6 +60,9 @@ public class PostForm extends FormLayout {
         categories.setItems(categoryService.findAll());
         categories.setItemLabelGenerator(Category::getName);
 
+        Button save = new Button("Save");
+        save.addThemeVariants(ButtonVariant.LUMO_ICON,
+                ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_TERTIARY);
         save.addClickListener(e -> savePost());
 
         add(title, slug, excerpt, postStatus, content, thumbnailUrl, videoId, sourceCode,
@@ -79,7 +77,6 @@ public class PostForm extends FormLayout {
 
     }
 
-
     private void bindFields() {
         binder.forField(title).bind(Post::getTitle, Post::setTitle);
         binder.forField(slug).bind(Post::getSlug, Post::setSlug);
@@ -91,13 +88,8 @@ public class PostForm extends FormLayout {
         binder.forField(sourceCode).bind(Post::getSourceCode, Post::setSourceCode);
         binder.forField(postType).bind(Post::getPostType, Post::setPostType);
         binder.forField(templateType).bind(Post::getTemplateType, Post::setTemplateType);
-//        binder.forField(displayOrder).bind((post) -> post.getDisplayOrder().toString(), (post)-> post.setDisplayOrder());
+        binder.forField(displayOrder).bind(Post::getDisplayOrder, Post::setDisplayOrder);
         binder.forField(author).bind(Post::getAuthor, Post::setAuthor);
-        // Assuming tags and categories are stored as Set<Tag> and Set<Category>
-        // You may need custom binding for tags and categories
-        // For simplicity, using bind() without custom converters
-
-
         binder.forField(tags).bind(Post::getTags, Post::setTags);
         binder.forField(categories).bind(Post::getCategories, Post::setCategories);
     }

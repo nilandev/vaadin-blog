@@ -2,6 +2,7 @@ package com.stacktips.bloggy.ui.admin.post;
 
 import com.stacktips.bloggy.model.Post;
 import com.stacktips.bloggy.service.PostService;
+import com.stacktips.bloggy.ui.admin.AdminView;
 import com.stacktips.bloggy.ui.admin.DashboardLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -11,12 +12,11 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.QueryParameters;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +26,7 @@ import java.util.Map;
 @Route(value = "admin/posts", layout = DashboardLayout.class)
 @PageTitle("Posts")
 @UIScope
-public class PostsListView extends VerticalLayout {
+public class PostsListView extends AdminView {
 
     private final PostService postService;
     private final Grid<Post> grid = new Grid<>(Post.class);
@@ -108,5 +108,10 @@ public class PostsListView extends VerticalLayout {
     private void deletePost(Post post) {
         postService.deletePost(post.getId());
         lazyDataView.refreshAll();
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Posts";
     }
 }
