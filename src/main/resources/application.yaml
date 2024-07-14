@@ -10,7 +10,11 @@ spring:
     username: root
     password: test_pass
 #  jpa:
-#    hibernate:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+  #    hibernate:
 #      ddl-auto: update
 
   flyway:

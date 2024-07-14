@@ -15,5 +15,6 @@ public class TagService {
 
     public Set<Tag> findAll() {
         return tagRepository.findAll().stream().collect(Collectors.toSet());
+
     }
 }

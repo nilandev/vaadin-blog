@@ -8,15 +8,21 @@ import com.stacktips.bloggy.service.AuthorService;
 import com.stacktips.bloggy.service.CategoryService;
 import com.stacktips.bloggy.service.PostService;
 import com.stacktips.bloggy.service.TagService;
+import com.vaadin.flow.component.ItemLabelGenerator;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class PostForm extends FormLayout {
     private TextField title = new TextField("Title");
@@ -35,8 +41,8 @@ public class PostForm extends FormLayout {
     private TextField displayOrder = new TextField("Display Order");
 
     private ComboBox<Author> author = new ComboBox<>("Author");
-    private ComboBox<Set<Tag>> tags = new ComboBox<>("Tags");
-    private ComboBox<Set<Category>> categories = new ComboBox<>("Categories");
+    private ComboBox<Tag> tags = new ComboBox<>("Tags");
+    private ComboBox<Category> categories = new ComboBox<>("Categories");
 
     private Button save = new Button("Save");
 
@@ -53,19 +59,17 @@ public class PostForm extends FormLayout {
         this.tagService = tagService;
         this.categoryService = categoryService;
 
-        binder.bindInstanceFields(this);
+//        binder.bindInstanceFields(this);
 
-        author.setItems(authorService.findAll());
+        author.setItems(authorService.findAll().stream().collect(Collectors.toSet()));
         author.setItemLabelGenerator(Author::getName);
 
-//        ListDataProvider<Tag> dataProvider = DataProvider.ofCollection(tagService.findAll());
-//        tags.setDataProvider(dataProvider);
-
         tags.setItems(tagService.findAll());
-//        tags.setItemLabelGenerator((item -> );
+        tags.setItemLabelGenerator(tag -> "#" + tag.getName());
+
 
         categories.setItems(categoryService.findAll());
-//        categories.setItemLabelGenerator(category -> category.getName());
+        categories.setItemLabelGenerator(Category::getName);
 
         save.addClickListener(e -> savePost());
 

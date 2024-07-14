@@ -1,4 +1,4 @@
-package com.stacktips.bloggy.ui.routes;
+package com.stacktips.bloggy.ui.admin;
 
 import com.stacktips.bloggy.model.Post;
 import com.stacktips.bloggy.service.AuthorService;

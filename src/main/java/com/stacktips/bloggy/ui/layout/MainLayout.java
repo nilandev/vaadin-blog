@@ -6,6 +6,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.RouterLink;
 
 @CssImport("./styles/shared-styles.css")
@@ -19,7 +20,10 @@ public class MainLayout extends AppLayout {
         H1 logo = new H1("Bloggy");
         logo.addClassName("logo");
 
-        HorizontalLayout navbarContainer = new HorizontalLayout(logo);
+        RouterLink link = new RouterLink("", PostListView.class);
+        link.add(logo);
+
+        HorizontalLayout navbarContainer = new HorizontalLayout();
         navbarContainer.setWidth("100%");
         navbarContainer.addClassNames("navbar-top");
 
@@ -28,7 +32,6 @@ public class MainLayout extends AppLayout {
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.setWidth("100%");
         header.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
-
         header.add(getNavBar());
 
         navbarContainer.add(header);

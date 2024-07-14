@@ -2,9 +2,12 @@ package com.stacktips.bloggy.ui.routes;
 
 import com.stacktips.bloggy.model.Post;
 import com.stacktips.bloggy.service.PostService;
+import com.stacktips.bloggy.ui.admin.EditPostView;
+import com.stacktips.bloggy.ui.admin.NewPostView;
 import com.stacktips.bloggy.ui.layout.MainLayout;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
@@ -55,7 +58,7 @@ public class PostDetailView extends VerticalLayout implements BeforeEnterObserve
         excerpt.addClassNames("lead");
         add(excerpt);
 
-        Paragraph content = new Paragraph(post.getContent());
+        Html content = new Html("<div class='post-content'>" + post.getContent() + "</div>");
         add(content);
 
         HorizontalLayout actions = new HorizontalLayout();

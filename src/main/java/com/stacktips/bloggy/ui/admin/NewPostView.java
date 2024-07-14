@@ -1,4 +1,4 @@
-package com.stacktips.bloggy.ui.routes;
+package com.stacktips.bloggy.ui.admin;
 
 import com.stacktips.bloggy.model.Post;
 import com.stacktips.bloggy.service.AuthorService;
@@ -10,7 +10,7 @@ import com.stacktips.bloggy.ui.layout.MainLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "new-post", layout = MainLayout.class)
+@Route(value = "admin/post/new", layout = MainLayout.class)
 public class NewPostView extends VerticalLayout {
 
 

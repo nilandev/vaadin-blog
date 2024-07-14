@@ -25,7 +25,6 @@ public class Post {
     private LocalDateTime publishedDate;
     private String postStatus;
 
-    @Lob
     @Column(columnDefinition="TEXT")
     private String content;
 
