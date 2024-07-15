@@ -25,5 +25,9 @@ spring:
 vaadin:
   launch-browser: true
 
-
-logging.level.org.atmosphere: warn
+logging:
+  level:
+    org:
+      atmosphere: warn
+      springframework:
+        security: DEBUG

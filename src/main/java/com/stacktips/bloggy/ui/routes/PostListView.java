@@ -12,8 +12,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@AnonymousAllowed
 @Route(value = "", layout = MainLayout.class)
 @PageTitle("Latest posts")
 public class PostListView extends VerticalLayout {

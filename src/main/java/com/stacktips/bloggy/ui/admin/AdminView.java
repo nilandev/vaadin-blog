@@ -3,8 +3,9 @@ package com.stacktips.bloggy.ui.admin;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
+import org.springframework.security.access.annotation.Secured;
 
-
+@Secured("ROLE_ADMIN")
 public abstract class AdminView extends VerticalLayout implements BeforeEnterObserver {
 
     @Override

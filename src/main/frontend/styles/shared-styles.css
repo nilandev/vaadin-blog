@@ -27,14 +27,12 @@ body {
     max-height: calc(5 * var(--lumo-size-m));
 }
 
-[part~="navbar"]{
-    background-color: red;
-}
-
-.navbar-top {
+.header {
     background: #fff !important;
     /*box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;*/
+    padding: 13px 0;
 }
+
 
 .logo {
     font-size: 24px;
@@ -63,10 +61,10 @@ body {
     display: flex;
     flex-direction: column;
     background: white;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     opacity: 1;
     transition: opacity 0.35s ease-in-out;
-    /*box-shadow: rgba(23, 23, 23, 0.05) 0px 0px 0px 1px*/
+    box-shadow: rgba(23, 23, 23, 0.05) 0px 0px 0px 1px;
 }
 
 .post-card.animated {
@@ -104,6 +102,10 @@ body {
     color: #666;
 }
 
+.post-card-link:hover {
+    text-decoration: underline;
+}
+
 .section-title {
     font-size: 2rem;
     font-weight: bold;
@@ -119,20 +121,51 @@ body {
     font-size: 1.25rem;
 }
 
-.post-details-container {
-    max-width: 1020px;
-    margin: 24px auto;
-    background: white;
-    padding: 2.25rem;
-    /*border: 1px solid #e6e6e6;*/
-}
-
 .mx-3 {
     margin: 0 16px;
 }
 
 
-
 .pagination-controls {
     margin: 20px auto;
+}
+
+
+.post-content-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 20px 0;
+
+}
+
+.main-content {
+    background: white;
+    padding: 2.5rem;
+    box-sizing: inherit;
+    box-shadow: rgba(23, 23, 23, 0.05) 0px 0px 0px 1px;
+}
+
+.sidebar {
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: rgba(23, 23, 23, 0.05) 0px 0px 0px 1px;
+}
+
+pre {
+    width: 100%;
+    padding: 0.75rem;
+    overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.post-content {
+    display: inherit;
+    width: 100%;
+}
+
+p {
+    margin-block-end: 0;
+    margin-block-start: 0;
 }

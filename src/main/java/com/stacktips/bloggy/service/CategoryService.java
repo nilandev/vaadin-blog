@@ -31,4 +31,10 @@ public class CategoryService {
     public Optional<Category> findCategoryById(Long id) {
         return categoryRepository.findById(id);
     }
+
+    public List<Category> findTop10Categories() {
+        // Implement your logic to fetch the top 10 categories
+        // This is just a placeholder. Replace with actual implementation.
+        return categoryRepository.findTop10ByOrderByNameDesc();
+    }
 }
