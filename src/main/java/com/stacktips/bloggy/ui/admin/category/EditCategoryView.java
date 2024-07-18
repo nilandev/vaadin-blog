@@ -2,26 +2,23 @@ package com.stacktips.bloggy.ui.admin.category;
 
 import com.stacktips.bloggy.model.Category;
 import com.stacktips.bloggy.service.CategoryService;
+import com.stacktips.bloggy.ui.admin.AdminView;
 import com.stacktips.bloggy.ui.admin.DashboardLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
-import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 import java.util.Optional;
 
-@PermitAll
 @Route(value = "admin/category/manage", layout = DashboardLayout.class)
-public class EditCategoryView extends VerticalLayout implements BeforeEnterObserver {
+public class EditCategoryView extends AdminView {
 
     private CategoryService categoryService;
     private Category currentCategory;
@@ -49,6 +46,12 @@ public class EditCategoryView extends VerticalLayout implements BeforeEnterObser
                 binder.readBean(currentCategory);
             });
         }
+        super.beforeEnter(event);
+    }
+
+    @Override
+    protected String getTitle() {
+        return "";
     }
 
     public EditCategoryView(CategoryService categoryService) {

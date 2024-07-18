@@ -65,8 +65,10 @@ public class PostForm extends FormLayout {
                 ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_TERTIARY);
         save.addClickListener(e -> savePost());
 
-        add(title, slug, excerpt, postStatus, content, thumbnailUrl, videoId, sourceCode,
+        add(title, slug, postStatus, excerpt, content, thumbnailUrl, videoId, sourceCode,
                 postType, templateType, displayOrder, author, tags, categories, save);
+
+        setColspan(content, 2);
 
         bindFields();
         if (post != null) {

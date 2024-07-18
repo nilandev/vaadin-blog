@@ -2,25 +2,23 @@ package com.stacktips.bloggy.ui.admin.tags;
 
 import com.stacktips.bloggy.model.Tag;
 import com.stacktips.bloggy.service.TagService;
+import com.stacktips.bloggy.ui.admin.AdminView;
 import com.stacktips.bloggy.ui.admin.DashboardLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
-import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 import java.util.Optional;
 
-@PermitAll
 @Route(value = "admin/tags/manage", layout = DashboardLayout.class)
-public class EditTagView extends VerticalLayout implements BeforeEnterObserver {
+public class EditTagView extends AdminView implements BeforeEnterObserver {
 
     private final TextField name = new TextField("Name");
     private final Button saveButton = new Button("Save");
@@ -78,5 +76,10 @@ public class EditTagView extends VerticalLayout implements BeforeEnterObserver {
                 binder.readBean(currentTag);
             });
         }
+    }
+
+    @Override
+    protected String getTitle() {
+        return "";
     }
 }

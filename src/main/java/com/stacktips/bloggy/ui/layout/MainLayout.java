@@ -2,6 +2,7 @@ package com.stacktips.bloggy.ui.layout;
 
 import com.stacktips.bloggy.model.User;
 import com.stacktips.bloggy.security.SecurityService;
+import com.stacktips.bloggy.ui.admin.DashboardView;
 import com.stacktips.bloggy.ui.auth.LoginView;
 import com.stacktips.bloggy.ui.auth.RegistrationView;
 import com.stacktips.bloggy.ui.routes.PostListView;
@@ -12,16 +13,15 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H5;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.shared.ThemeVariant;
 import com.vaadin.flow.router.RouterLink;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @CssImport("./styles/shared-styles.css")
 public class MainLayout extends AppLayout {
@@ -34,18 +34,21 @@ public class MainLayout extends AppLayout {
     }
 
     private void createNavbar() {
+
+        Image image = new Image("icons/icon.png", "");
+        image.setHeight("30px");
         H1 logo = new H1("Bloggy");
         logo.addClassName("logo");
 
-        RouterLink link = new RouterLink(PostListView.class);
-        link.add(logo);
+        HorizontalLayout logoContainer = new HorizontalLayout(image, logo);
+        logoContainer.setSpacing(false);
 
         HorizontalLayout headerContainer = new HorizontalLayout();
         headerContainer.setWidthFull();
         headerContainer.addClassNames("header");
         headerContainer.setSpacing(true);
 
-        HorizontalLayout header = new HorizontalLayout(link);
+        HorizontalLayout header = new HorizontalLayout(logoContainer);
         header.addClassNames("container");
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.setWidth("100%");
@@ -92,16 +95,22 @@ public class MainLayout extends AppLayout {
         MenuBar menuBar = new MenuBar();
         menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
 
-        Image userImage = new Image("https://ui-avatars.com/api/?name=John+Doe", "User Image");
+
+        Image userImage = new Image("https://ui-avatars.com/api/?name=" + user.getFirstName() + "+" + user.getLastName(),
+                user.getFirstName() + "+" + user.getLastName());
         userImage.addClassName("nav-user-image");
 
         MenuItem userMenu = menuBar.addItem(userImage);
         VerticalLayout dropdown = new VerticalLayout();
-        dropdown.add(new Span(user.getFirstName() + " " + user.getLastName()));
+        dropdown.setMinWidth("160px");
+
+        var userName = new H5(user.getFirstName() + " " + user.getLastName());
+        dropdown.add(userName);
 
         dropdown.add(new RouterLink("Account", PostListView.class));
         dropdown.add(new RouterLink("Profile", PostListView.class));
-
+        dropdown.add(new RouterLink("Dashboard", DashboardView.class));
+        dropdown.add(new Hr());
         Button logout = new Button("Logout", event -> securityService.logout());
         logout.addThemeVariants(ButtonVariant.LUMO_ERROR);
         dropdown.add(logout);

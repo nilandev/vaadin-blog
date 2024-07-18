@@ -9,8 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,8 +34,8 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Set<User> findAll() {
+        return userRepository.findAll().stream().collect(Collectors.toSet());
     }
 
     @Override
@@ -42,5 +43,9 @@ public class UserService implements UserDetailsService {
         return findByEmail(username)
                 .map(CustomUserDetails::buildUser)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }

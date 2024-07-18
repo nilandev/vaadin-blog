@@ -5,21 +5,19 @@ import com.stacktips.bloggy.service.AuthorService;
 import com.stacktips.bloggy.service.CategoryService;
 import com.stacktips.bloggy.service.PostService;
 import com.stacktips.bloggy.service.TagService;
+import com.stacktips.bloggy.ui.admin.AdminView;
 import com.stacktips.bloggy.ui.admin.DashboardLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 import java.util.Optional;
 
 @Route(value = "admin/posts/manage", layout = DashboardLayout.class)
 @PageTitle("Posts")
-@PermitAll
-public class EditPostView extends Div implements BeforeEnterObserver {
+public class EditPostView extends AdminView implements BeforeEnterObserver {
 
     private final PostService postService;
     private final AuthorService authorService;
@@ -44,6 +42,11 @@ public class EditPostView extends Div implements BeforeEnterObserver {
                 .stream()
                 .findFirst();
         _id.ifPresent(s -> initForm(Long.parseLong(s)));
+    }
+
+    @Override
+    protected String getTitle() {
+        return "";
     }
 
     private void initForm(Long postId) {

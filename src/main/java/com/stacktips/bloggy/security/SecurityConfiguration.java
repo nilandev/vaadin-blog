@@ -26,15 +26,12 @@ public class SecurityConfiguration extends VaadinWebSecurity {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-
-        // This is important to register your login view to the
-        // navigation access control mechanism:
         setLoginView(http, LoginView.class);
+
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        // Customize your WebSecurity configuration.
         web.ignoring().requestMatchers(
                 "/VAADIN/**",
                 "/favicon.ico",

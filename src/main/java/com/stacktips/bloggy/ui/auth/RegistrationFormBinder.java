@@ -53,7 +53,7 @@ public class RegistrationFormBinder {
         try {
             User user = new User();
             binder.writeBean(user);
-            user.setRole(User.Role.REGULAR_USER);
+            user.setRole(User.Role.ROLE_USER);
             userService.saveUser(user);
 
             showSuccess(user);
