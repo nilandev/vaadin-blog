@@ -45,6 +45,7 @@ public class EditUserView extends AdminView implements BeforeEnterObserver {
 
         roles.setItems(User.Role.values());
         roles.setItemLabelGenerator(User.Role::name);
+        password.setReadOnly(true);
 
         FormLayout formLayout = new FormLayout();
         formLayout.setClassName("container");
