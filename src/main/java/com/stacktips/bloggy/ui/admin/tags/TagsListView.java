@@ -17,11 +17,13 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
 
+@PermitAll
 @Route(value = "admin/tags", layout = DashboardLayout.class)
 @PageTitle("Categories")
 public class TagsListView extends AdminView {

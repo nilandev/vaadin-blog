@@ -13,10 +13,12 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 import java.util.Optional;
 
+@PermitAll
 @Route(value = "admin/tags/manage", layout = DashboardLayout.class)
 public class EditTagView extends VerticalLayout implements BeforeEnterObserver {
 

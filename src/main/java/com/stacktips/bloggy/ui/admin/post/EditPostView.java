@@ -11,12 +11,14 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 import java.util.Optional;
 
 @Route(value = "admin/posts/manage", layout = DashboardLayout.class)
 @PageTitle("Posts")
+@PermitAll
 public class EditPostView extends Div implements BeforeEnterObserver {
 
     private final PostService postService;

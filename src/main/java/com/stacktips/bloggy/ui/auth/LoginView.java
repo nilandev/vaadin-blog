@@ -27,6 +27,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
 
+        loginForm.setAction("login");
         add(loginForm);
         loginForm.getElement().setAttribute("no-autofocus", "");
     }

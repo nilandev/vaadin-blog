@@ -18,6 +18,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.Map;
 @Route(value = "admin/posts", layout = DashboardLayout.class)
 @PageTitle("Posts")
 @UIScope
+@PermitAll
 public class PostsListView extends AdminView {
 
     private final PostService postService;
