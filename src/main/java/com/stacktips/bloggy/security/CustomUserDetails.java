@@ -32,7 +32,7 @@ public class CustomUserDetails implements UserDetails {
             throw new UsernameNotFoundException("User not found");
         }
 
-        List<GrantedAuthority> authorities = user.getRoles().stream()
+        List<GrantedAuthority> authorities = user.getRolesSet().stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
 

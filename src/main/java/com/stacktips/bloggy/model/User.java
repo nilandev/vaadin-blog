@@ -1,13 +1,11 @@
 package com.stacktips.bloggy.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,6 +14,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,24 +28,27 @@ public class User {
 
     @Column(length = 60)
     private String password;
-
     private String roles;
 
-    public Set<Role> getRoles() {
+    public Set<Role> getRolesSet() {
+        if (!StringUtils.hasText(roles)) {
+            return new HashSet<>();
+        }
+
         return Arrays.stream(roles.split(","))
                 .map(Role::valueOf).collect(Collectors.toSet());
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void addRole(Set<Role> roles) {
         this.roles = roles.stream()
                 .map(Role::name)
                 .collect(Collectors.joining(","));
     }
 
     public void setRole(Role role) {
-        Set<Role> currentRoles = getRoles();
+        Set<Role> currentRoles = getRolesSet();
         currentRoles.add(role);
-        setRoles(currentRoles);
+        addRole(currentRoles);
     }
 
     public enum Role {

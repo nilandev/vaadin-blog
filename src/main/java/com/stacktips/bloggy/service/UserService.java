@@ -4,10 +4,9 @@ import com.stacktips.bloggy.model.User;
 import com.stacktips.bloggy.repository.UserRepository;
 import com.stacktips.bloggy.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsManager {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -40,31 +39,8 @@ public class UserService implements UserDetailsManager {
 
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return CustomUserDetails.buildUser(findByEmail(username).orElse(null));
-    }
-
-    @Override
-    public void createUser(UserDetails user) {
-
-    }
-
-    @Override
-    public void updateUser(UserDetails user) {
-
-    }
-
-    @Override
-    public void deleteUser(String username) {
-
-    }
-
-    @Override
-    public void changePassword(String oldPassword, String newPassword) {
-
-    }
-
-    @Override
-    public boolean userExists(String username) {
-        return false;
+        return findByEmail(username)
+                .map(CustomUserDetails::buildUser)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

@@ -1,13 +1,8 @@
 package com.stacktips.bloggy.ui.auth;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
@@ -17,20 +12,23 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @Route("login")
 @PageTitle("Login")
 @AnonymousAllowed
+@CssImport("./styles/shared-styles.css")
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
-    private LoginForm login = new LoginForm();
+    private LoginForm loginForm = new LoginForm();
 
     public LoginView() {
+        setSizeFull();
+        getStyle().set("display", "flex").set("justify-content", "center")
+                .set("padding", "var(--lumo-space-l)");
         addClassName("login-view");
         setSizeFull();
 
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
 
-        login.setAction("login");
-
-        add(new H1("Test Application"), login);
+        add(loginForm);
+        loginForm.getElement().setAttribute("no-autofocus", "");
     }
 
     @Override
@@ -39,24 +37,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
                 .getQueryParameters()
                 .getParameters()
                 .containsKey("error")) {
-            login.setError(true);
+            loginForm.setError(true);
         }
     }
 }
-//public class LoginView extends VerticalLayout {
-//
-//    public LoginView() {
-//        H1 title = new H1("Login");
-//
-//        TextField email = new TextField("Email");
-//        PasswordField password = new PasswordField("Password");
-//
-//        Button loginButton = new Button("Login", event -> {
-//            // The actual login logic will be handled by Spring Security
-//            Notification.show("Login attempt", 2000, Notification.Position.TOP_END);
-//        });
-//
-//        FormLayout formLayout = new FormLayout(email, password, loginButton);
-//        add(title, formLayout);
-//    }
-//}
