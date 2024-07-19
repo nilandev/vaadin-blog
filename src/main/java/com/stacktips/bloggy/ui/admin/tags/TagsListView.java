@@ -3,7 +3,7 @@ package com.stacktips.bloggy.ui.admin.tags;
 import com.stacktips.bloggy.model.Tag;
 import com.stacktips.bloggy.service.TagService;
 import com.stacktips.bloggy.ui.admin.AdminView;
-import com.stacktips.bloggy.ui.admin.DashboardLayout;
+import com.stacktips.bloggy.ui.admin.AdminLayout;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Map;
 
-@Route(value = "admin/tags", layout = DashboardLayout.class)
+@Route(value = "admin/tags", layout = AdminLayout.class)
 @PageTitle("Categories")
 public class TagsListView extends AdminView {
 

@@ -3,7 +3,7 @@ package com.stacktips.bloggy.ui.admin.post;
 import com.stacktips.bloggy.model.Post;
 import com.stacktips.bloggy.service.PostService;
 import com.stacktips.bloggy.ui.admin.AdminView;
-import com.stacktips.bloggy.ui.admin.DashboardLayout;
+import com.stacktips.bloggy.ui.admin.AdminLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Map;
 
-@Route(value = "admin/posts", layout = DashboardLayout.class)
+@Route(value = "admin/posts", layout = AdminLayout.class)
 @PageTitle("Posts")
 @UIScope
 public class PostsListView extends AdminView {

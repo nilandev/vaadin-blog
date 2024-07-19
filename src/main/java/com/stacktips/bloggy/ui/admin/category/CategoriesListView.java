@@ -3,7 +3,7 @@ package com.stacktips.bloggy.ui.admin.category;
 import com.stacktips.bloggy.model.Category;
 import com.stacktips.bloggy.service.CategoryService;
 import com.stacktips.bloggy.ui.admin.AdminView;
-import com.stacktips.bloggy.ui.admin.DashboardLayout;
+import com.stacktips.bloggy.ui.admin.AdminLayout;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Map;
 
-@Route(value = "admin/categories", layout = DashboardLayout.class)
+@Route(value = "admin/categories", layout = AdminLayout.class)
 @PageTitle("Categories")
 @UIScope
 public class CategoriesListView extends AdminView {

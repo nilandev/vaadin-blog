@@ -3,9 +3,10 @@ package com.stacktips.bloggy.ui.admin.category;
 import com.stacktips.bloggy.model.Category;
 import com.stacktips.bloggy.service.CategoryService;
 import com.stacktips.bloggy.ui.admin.AdminView;
-import com.stacktips.bloggy.ui.admin.DashboardLayout;
+import com.stacktips.bloggy.ui.admin.AdminLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -17,7 +18,7 @@ import com.vaadin.flow.router.Route;
 import java.util.List;
 import java.util.Optional;
 
-@Route(value = "admin/category/manage", layout = DashboardLayout.class)
+@Route(value = "admin/category/manage", layout = AdminLayout.class)
 public class EditCategoryView extends AdminView {
 
     private CategoryService categoryService;
@@ -51,19 +52,26 @@ public class EditCategoryView extends AdminView {
 
     @Override
     protected String getTitle() {
-        return "";
+        if (null != currentCategory) {
+            return "Manage category #" + currentCategory.getId();
+        }
+        return "New category";
     }
 
     public EditCategoryView(CategoryService categoryService) {
         this.categoryService = categoryService;
 
         FormLayout formLayout = new FormLayout();
-        formLayout.add(name, slug, excerpt, publishStatus, articleCount);
+        formLayout.getStyle().set("background-color", "white")
+                .set("--vaadin-form-layout-column-spacing", "var(--lumo-space-l)")
+                .set("padding", "var(--lumo-space-l)");
 
+        formLayout.add(name, slug, excerpt, publishStatus, articleCount, saveButton);
         binder.bindInstanceFields(this);
 
+        saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         saveButton.addClickListener(e -> saveCategory());
-        add(formLayout, saveButton);
+        add(formLayout);
     }
 
     public void setCategory(Category category) {

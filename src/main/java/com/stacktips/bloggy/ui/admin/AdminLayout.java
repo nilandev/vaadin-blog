@@ -20,13 +20,12 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 @CssImport("./styles/admin.css")
-public class DashboardLayout extends AppLayout {
+public class AdminLayout extends AppLayout {
 
     private final H1 title;
 
-    public DashboardLayout() {
+    public AdminLayout() {
         DrawerToggle toggle = new DrawerToggle();
-
         title = new H1("Bloggy");
         title.getStyle().set("font-size", "var(--lumo-font-size-l)")
                 .set("margin", "0");
@@ -70,8 +69,8 @@ public class DashboardLayout extends AppLayout {
         title.setText(newTitle);
     }
 
-    public static DashboardLayout getInstance() {
-        return (DashboardLayout) UI.getCurrent().getChildren()
-                .filter(component -> component.getClass() == DashboardLayout.class).findFirst().orElse(null);
+    public static AdminLayout getInstance() {
+        return (AdminLayout) UI.getCurrent().getChildren()
+                .filter(component -> component.getClass() == AdminLayout.class).findFirst().orElse(null);
     }
 }

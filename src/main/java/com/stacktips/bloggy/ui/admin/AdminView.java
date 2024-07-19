@@ -12,7 +12,7 @@ public abstract class AdminView extends VerticalLayout implements BeforeEnterObs
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-        DashboardLayout instance = DashboardLayout.getInstance();
+        AdminLayout instance = AdminLayout.getInstance();
         if (instance != null) {
             instance.setTitle(getTitle());
         }

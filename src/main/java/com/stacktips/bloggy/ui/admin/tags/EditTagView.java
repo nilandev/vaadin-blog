@@ -3,7 +3,7 @@ package com.stacktips.bloggy.ui.admin.tags;
 import com.stacktips.bloggy.model.Tag;
 import com.stacktips.bloggy.service.TagService;
 import com.stacktips.bloggy.ui.admin.AdminView;
-import com.stacktips.bloggy.ui.admin.DashboardLayout;
+import com.stacktips.bloggy.ui.admin.AdminLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -17,7 +17,7 @@ import com.vaadin.flow.router.Route;
 import java.util.List;
 import java.util.Optional;
 
-@Route(value = "admin/tags/manage", layout = DashboardLayout.class)
+@Route(value = "admin/tags/manage", layout = AdminLayout.class)
 public class EditTagView extends AdminView implements BeforeEnterObserver {
 
     private final TextField name = new TextField("Name");
@@ -76,10 +76,14 @@ public class EditTagView extends AdminView implements BeforeEnterObserver {
                 binder.readBean(currentTag);
             });
         }
+        super.beforeEnter(event);
     }
 
     @Override
     protected String getTitle() {
-        return "";
+        if (null != currentTag) {
+            return "Manage tag #" + currentTag.getId();
+        }
+        return "New tag";
     }
 }

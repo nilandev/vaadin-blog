@@ -3,7 +3,7 @@ package com.stacktips.bloggy.ui.admin.user;
 import com.stacktips.bloggy.model.User;
 import com.stacktips.bloggy.service.UserService;
 import com.stacktips.bloggy.ui.admin.AdminView;
-import com.stacktips.bloggy.ui.admin.DashboardLayout;
+import com.stacktips.bloggy.ui.admin.AdminLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -23,7 +23,7 @@ import com.vaadin.flow.router.Route;
 import java.util.List;
 import java.util.Optional;
 
-@Route(value = "admin/users/manage", layout = DashboardLayout.class)
+@Route(value = "admin/users/manage", layout = AdminLayout.class)
 public class EditUserView extends AdminView implements BeforeEnterObserver {
 
     private final TextField firstName = new TextField("First Name");
@@ -100,10 +100,14 @@ public class EditUserView extends AdminView implements BeforeEnterObserver {
                 binder.readBean(currentUser);
             });
         }
+        super.beforeEnter(event);
     }
 
     @Override
     protected String getTitle() {
-        return "";
+        if (null != currentUser) {
+            return "Manage user #" + currentUser.getId();
+        }
+        return "New user";
     }
 }
