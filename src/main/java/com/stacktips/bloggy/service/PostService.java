@@ -28,6 +28,10 @@ public class PostService {
         return postRepository.findById(postId);
     }
 
+    public Optional<Post> findBySlug(String slug) {
+        return postRepository.findBySlug(slug);
+    }
+
     public void deletePost(Long id) {
         postRepository.deleteById(id);
     }

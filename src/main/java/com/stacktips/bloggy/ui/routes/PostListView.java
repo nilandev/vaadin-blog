@@ -16,7 +16,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @AnonymousAllowed
-@Route(value = "", layout = MainLayout.class)
+@Route(value ="articles", layout = MainLayout.class)
 @PageTitle("Latest posts")
 public class PostListView extends VerticalLayout {
 

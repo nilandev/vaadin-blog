@@ -14,6 +14,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "category",
+        indexes = {
+                @Index(name = "category_slug_index", columnList = "slug", unique = true)
+        }
+)
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

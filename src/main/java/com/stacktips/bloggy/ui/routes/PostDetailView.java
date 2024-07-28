@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Route(value = "post/:postId", layout = MainLayout.class)
+@Route(value = "articles/:slug", layout = MainLayout.class)
 @PageTitle("Post Details")
 @AnonymousAllowed
 public class PostDetailView extends VerticalLayout implements BeforeEnterObserver {
@@ -34,10 +34,10 @@ public class PostDetailView extends VerticalLayout implements BeforeEnterObserve
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         final RouteParameters urlParameters = beforeEnterEvent.getRouteParameters();
-        String postId = urlParameters.get("postId")
+        String slug = urlParameters.get("slug")
                 .orElseThrow(() -> new NotFoundException("Page not found"));
 
-        Post post = postService.findById(Long.valueOf(postId))
+        Post post = postService.findBySlug(slug)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
         HorizontalLayout mainLayout = new HorizontalLayout(renderContent(post), renderSidebar(post));

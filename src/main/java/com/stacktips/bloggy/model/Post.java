@@ -14,6 +14,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "post",
+        indexes = {
+                @Index(name = "post_slug_index", columnList = "slug", unique = true)
+        }
+)
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +32,7 @@ public class Post {
     private LocalDateTime publishedDate;
     private String postStatus;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String thumbnailUrl;

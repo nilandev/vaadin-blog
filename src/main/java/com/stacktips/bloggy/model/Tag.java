@@ -13,6 +13,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tag",
+        indexes = {
+                @Index(name = "tag_name_index", columnList = "name", unique = true)
+        }
+)
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

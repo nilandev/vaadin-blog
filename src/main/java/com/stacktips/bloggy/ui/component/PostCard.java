@@ -34,9 +34,8 @@ public class PostCard extends Div {
         Paragraph author = new Paragraph("By " + (null != post.getAuthor() ? post.getAuthor().getName() : "by @Nilan"));
         author.addClassName("post-card-author");
 
-        RouterLink detailLink = new RouterLink("", PostDetailView.class, new RouteParameters("postId", post.getId().toString()));
+        RouterLink detailLink = new RouterLink("", PostDetailView.class, new RouteParameters("slug", post.getSlug()));
         detailLink.addClassName("post-card-link");
-
 
         detailLink.add(title);
         cardBody.add(detailLink, excerpt, author);
